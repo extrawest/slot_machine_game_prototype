@@ -11,7 +11,7 @@ class SlotMachineApp extends StatelessWidget {
     return MaterialApp(
       theme: lightTheme,
       routes: applicationRoutes,
-      initialRoute: homeScreenRoute,
+      initialRoute: splashScreenRoute,
       home: const SlotGameHomeScreen(),
     );
   }
