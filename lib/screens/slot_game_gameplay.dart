@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slot_machine_game/widgets/common/background_gradient_scaffold.dart';
 
 class SlotGamePlayScreen extends StatefulWidget {
   const SlotGamePlayScreen({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class SlotGamePlayScreen extends StatefulWidget {
 class _SlotGamePlayScreenState extends State<SlotGamePlayScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const GradientBackgroundScaffold(
+      child: Text('gaga-gag'),
+    );
   }
 }
