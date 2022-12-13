@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slot_machine_game/theme.dart';
 
 class SlotGameMainMenu extends StatelessWidget {
   const SlotGameMainMenu({Key? key}) : super(key: key);
@@ -8,8 +9,8 @@ class SlotGameMainMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text('Slot Game', style: TextStyle()),
+      children: const [
+        Text('Slot Game', style: TextStyles.h1Bold45),
       ],
     );
   }
