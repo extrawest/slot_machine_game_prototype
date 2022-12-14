@@ -37,5 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, playButton), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowButton), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, homeButton), null);
+
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, seventhIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, cherryIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, appleIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, barIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, lemonIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, coinIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, watermelonIc), null);
+    await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, crownIc), null);
   }
 }
