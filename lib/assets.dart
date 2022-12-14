@@ -1,6 +1,7 @@
 const playButton = 'assets/images/play_button.svg';
 const homeButton = 'assets/images/home_button.svg';
 const arrowButton = 'assets/images/arrow_button.svg';
+const boardIc = 'assets/images/board.svg';
 
 /// Slot items
 const seventhIc = 'assets/images/777.svg';
