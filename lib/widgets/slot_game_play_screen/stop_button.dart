@@ -15,7 +15,7 @@ class StopButton extends StatelessWidget {
       angle: pi / 2,
       child: ZoomTapAnimation(
         onTap: onPressed,
-        child: SvgPicture.asset(arrowButton),
+        child: SvgPicture.asset(arrowButton, width: 80),
       ),
     );
   }
