@@ -1,0 +1,1 @@
+const defaultErrorMessage = 'Something went wrong';
