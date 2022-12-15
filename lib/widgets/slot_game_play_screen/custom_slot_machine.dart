@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/utils.dart';
+import 'package:slot_machine_game/widgets/slot_game_play_screen/prize_dialog.dart';
 import 'package:slot_machine_game/widgets/slot_game_play_screen/stop_button.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -105,13 +106,18 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
   }
 
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
-    if (!state.isAnySlotSpinning) {
-      print('finish');
+    if (!state.isAnySlotSpinning && state.currentPrize != null) {
+      showDialog(
+        context: context,
+        builder: (_) => Center(
+          child: PrizeDialog(prize: state.currentPrize!),
+        ),
+      );
     }
   }
 
   void _onSlotMachineStart() {
-    final index = Random().nextInt(20);
+    final index = Random().nextInt(8);
     print(index);
     _slotMachineController.start(hitRollItemIndex: index <= 7 ? index : null);
     context.read<SlotMachineCubit>().setSlotsValue(

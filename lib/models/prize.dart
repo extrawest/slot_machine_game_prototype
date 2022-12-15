@@ -1,14 +1,13 @@
-import 'package:slot_machine_game/utils.dart';
-
 class Prize {
   final PrizeType prizeType;
   final String asset;
+  final String name;
 
-  const Prize({required this.asset, required this.prizeType});
-
-  factory Prize.fromIndex(int index) {
-    return prizes[index]!;
-  }
+  const Prize({
+    required this.asset,
+    required this.prizeType,
+    required this.name,
+  });
 }
 
 enum PrizeType {

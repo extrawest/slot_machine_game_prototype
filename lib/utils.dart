@@ -15,12 +15,12 @@ List<RollItem> rollItems = <RollItem>[
 ];
 
 final Map<int, Prize> prizes = <int, Prize>{
-  0: const Prize(asset: seventhIc, prizeType: PrizeType.seventh),
-  1: const Prize(asset: cherryIc, prizeType: PrizeType.cherry),
-  2: const Prize(asset: appleIc, prizeType: PrizeType.apple),
-  3: const Prize(asset: crownIc, prizeType: PrizeType.crown),
-  4: const Prize(asset: barIc, prizeType: PrizeType.bar),
-  5: const Prize(asset: coinIc, prizeType: PrizeType.coin),
-  6: const Prize(asset: lemonIc, prizeType: PrizeType.lemon),
-  7: const Prize(asset: watermelonIc, prizeType: PrizeType.watermelon),
+  0: const Prize(asset: seventhIc, prizeType: PrizeType.seventh, name: 'Jackpot'),
+  1: const Prize(asset: cherryIc, prizeType: PrizeType.cherry, name: 'Cherry'),
+  2: const Prize(asset: appleIc, prizeType: PrizeType.apple, name: 'Apple'),
+  3: const Prize(asset: crownIc, prizeType: PrizeType.crown, name: 'Crown'),
+  4: const Prize(asset: barIc, prizeType: PrizeType.bar, name: 'Bar'),
+  5: const Prize(asset: coinIc, prizeType: PrizeType.coin, name: 'Coins'),
+  6: const Prize(asset: lemonIc, prizeType: PrizeType.lemon, name: 'Lemon'),
+  7: const Prize(asset: watermelonIc, prizeType: PrizeType.watermelon, name: 'Watermelon'),
 };
