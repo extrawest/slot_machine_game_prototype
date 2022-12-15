@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slot_machine_game/consts.dart';
 import 'package:slot_machine_game/models/prize.dart';
+import 'package:slot_machine_game/utils.dart';
 
 part 'slot_machine_state.dart';
 
@@ -25,8 +26,8 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
 
   void setPrize(int prizeIndex) {
     try {
-      final prize = Prize.fromIndex(prizeIndex);
-      emit(state.copyWith(currentPrize: prize));
+      final prize = prizes[prizeIndex];
+      emit(state.copyWith(currentPrize: prize, keepPrize: false));
     } catch (e) {
       emit(state.copyWith(errorMessage: defaultErrorMessage));
     }

@@ -28,6 +28,7 @@ class SlotMachineState extends Equatable {
     bool? isThirdSlotSpinning,
     int? prizeIndex,
     Prize? currentPrize,
+    bool keepPrize = true,
     String? errorMessage,
   }) {
     return SlotMachineState(
@@ -36,7 +37,7 @@ class SlotMachineState extends Equatable {
       isSecondSlotSpinning: isSecondSlotSpinning ?? this.isSecondSlotSpinning,
       isThirdSlotSpinning: isThirdSlotSpinning ?? this.isThirdSlotSpinning,
       prizeIndex: prizeIndex ?? this.prizeIndex,
-      currentPrize: currentPrize ?? this.currentPrize,
+      currentPrize: currentPrize ?? (keepPrize ? this.currentPrize : null),
       errorMessage: errorMessage,
     );
   }
