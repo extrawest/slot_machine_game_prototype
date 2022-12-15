@@ -23,7 +23,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SlotMachineCubit, SlotMachineState>(
-      listenWhen: (prev, curr) => prev.prizeIndex != curr.prizeIndex,
+      listenWhen: (prev, curr) => prev.isAnySlotSpinning != curr.isAnySlotSpinning,
       listener: _slotMachineListener,
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,7 +104,11 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
     );
   }
 
-  void _slotMachineListener(BuildContext context, SlotMachineState state) {}
+  void _slotMachineListener(BuildContext context, SlotMachineState state) {
+    if (!state.isAnySlotSpinning) {
+      print('finish');
+    }
+  }
 
   void _onSlotMachineStart() {
     final index = Random().nextInt(20);
@@ -115,7 +119,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
           secondSlot: true,
           thirdSlot: true,
         );
-    context.read<SlotMachineCubit>().setPrizeIndex(index);
+    context.read<SlotMachineCubit>().setPrize(index);
   }
 
   void _onSlotMachineStop({required int index}) {

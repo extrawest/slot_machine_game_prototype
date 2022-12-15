@@ -10,6 +10,9 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
 
   void setSlotsValue({bool? firstSlot, bool? secondSlot, bool? thirdSlot}) {
     emit(state.copyWith(
+      isAnySlotSpinning: (firstSlot ?? state.isFirstSlotSpinning) ||
+          (secondSlot ?? state.isSecondSlotSpinning) ||
+          (thirdSlot ?? state.isThirdSlotSpinning),
       isFirstSlotSpinning: firstSlot,
       isSecondSlotSpinning: secondSlot,
       isThirdSlotSpinning: thirdSlot,

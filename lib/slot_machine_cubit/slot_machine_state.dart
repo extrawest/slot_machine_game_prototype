@@ -1,6 +1,7 @@
 part of 'slot_machine_cubit.dart';
 
 class SlotMachineState extends Equatable {
+  final bool isAnySlotSpinning;
   final bool isFirstSlotSpinning;
   final bool isSecondSlotSpinning;
   final bool isThirdSlotSpinning;
@@ -11,6 +12,7 @@ class SlotMachineState extends Equatable {
   final String? errorMessage;
 
   const SlotMachineState({
+    this.isAnySlotSpinning = false,
     this.isFirstSlotSpinning = false,
     this.isSecondSlotSpinning = false,
     this.isThirdSlotSpinning = false,
@@ -20,6 +22,7 @@ class SlotMachineState extends Equatable {
   });
 
   SlotMachineState copyWith({
+    bool? isAnySlotSpinning,
     bool? isFirstSlotSpinning,
     bool? isSecondSlotSpinning,
     bool? isThirdSlotSpinning,
@@ -28,6 +31,7 @@ class SlotMachineState extends Equatable {
     String? errorMessage,
   }) {
     return SlotMachineState(
+      isAnySlotSpinning: isAnySlotSpinning ?? this.isAnySlotSpinning,
       isFirstSlotSpinning: isFirstSlotSpinning ?? this.isFirstSlotSpinning,
       isSecondSlotSpinning: isSecondSlotSpinning ?? this.isSecondSlotSpinning,
       isThirdSlotSpinning: isThirdSlotSpinning ?? this.isThirdSlotSpinning,
@@ -39,6 +43,7 @@ class SlotMachineState extends Equatable {
 
   @override
   List<Object?> get props => [
+        isAnySlotSpinning,
         isFirstSlotSpinning,
         isSecondSlotSpinning,
         isThirdSlotSpinning,
