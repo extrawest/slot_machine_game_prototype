@@ -1,7 +1,7 @@
 const playButton = 'assets/images/play_button.svg';
 const homeButton = 'assets/images/home_button.svg';
 const arrowButton = 'assets/images/arrow_button.svg';
-const boardIc = 'assets/images/board.svg';
+const boardIc = 'assets/images/board.png';
 
 /// Slot items
 const seventhIc = 'assets/images/777.svg';
@@ -12,5 +12,3 @@ const coinIc = 'assets/images/coin.svg';
 const crownIc = 'assets/images/crown.svg';
 const lemonIc = 'assets/images/lemon.svg';
 const watermelonIc = 'assets/images/watermelon.svg';
-
-

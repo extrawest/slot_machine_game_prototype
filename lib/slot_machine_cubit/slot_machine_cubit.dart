@@ -6,7 +6,7 @@ part 'slot_machine_state.dart';
 class SlotMachineCubit extends Cubit<SlotMachineState> {
   SlotMachineCubit() : super(const SlotMachineState());
 
-  void setFirstSlotValue({bool? firstSlot, bool? secondSlot, bool? thirdSlot}) {
+  void setSlotsValue({bool? firstSlot, bool? secondSlot, bool? thirdSlot}) {
     emit(state.copyWith(
       isFirstSlotSpinning: firstSlot,
       isSecondSlotSpinning: secondSlot,

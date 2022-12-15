@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slot_machine_game/routes.dart';
 import 'package:slot_machine_game/screens/slot_game_home_screen.dart';
+import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/theme.dart';
 
 class SlotMachineApp extends StatelessWidget {
@@ -8,11 +10,14 @@ class SlotMachineApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      routes: applicationRoutes,
-      initialRoute: splashScreenRoute,
-      home: const SlotGameHomeScreen(),
+    return BlocProvider<SlotMachineCubit>(
+      create: (context) => SlotMachineCubit(),
+      child: MaterialApp(
+        theme: lightTheme,
+        routes: applicationRoutes,
+        initialRoute: splashScreenRoute,
+        home: const SlotGameHomeScreen(),
+      ),
     );
   }
 }
