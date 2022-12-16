@@ -110,11 +110,13 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
 
   void _slotMachineListener(BuildContext context, SlotMachineState state) {
     if (!state.isAnySlotSpinning && state.currentPrize != null) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => Center(
-          child: PrizeDialog(prize: state.currentPrize!),
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) => showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => Center(
+            child: PrizeDialog(prize: state.currentPrize!),
+          ),
         ),
       );
     }
