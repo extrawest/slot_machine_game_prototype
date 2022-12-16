@@ -15,19 +15,14 @@ class SlotGameMainMenu extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Expanded(
-          flex: 2,
-          child: Center(child: Text('Slot Game', style: TextStyles.h1Bold45)),
-        ),
-        Expanded(
-          flex: 4,
-          child: CommonMouseRegion(
-            child: ZoomTapAnimation(
-              onTap: () {
-                Navigator.pushReplacementNamed(context, gameScreenRoute);
-              },
-              child: SvgPicture.asset(playButton),
-            ),
+        const Center(child: Text('Slot Game', style: TextStyles.h1Bold45)),
+        const SizedBox(height: 30),
+        CommonMouseRegion(
+          child: ZoomTapAnimation(
+            onTap: () {
+              Navigator.pushNamed(context, gameScreenRoute);
+            },
+            child: SvgPicture.asset(playButton),
           ),
         ),
       ],
