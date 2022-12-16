@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/utils.dart';
+import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
 import 'package:slot_machine_game/widgets/slot_game_play_screen/prize_dialog.dart';
 import 'package:slot_machine_game/widgets/slot_game_play_screen/stop_button.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -57,11 +58,13 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
           const SizedBox(height: 25),
           _buildStopButtons(state),
           const SizedBox(height: 25),
-          ZoomTapAnimation(
-            onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
-                ? null
-                : _onSlotMachineStart(),
-            child: SvgPicture.asset(playButton, width: 200),
+          CommonMouseRegion(
+            child: ZoomTapAnimation(
+              onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
+                  ? null
+                  : _onSlotMachineStart(),
+              child: SvgPicture.asset(playButton, width: 200),
+            ),
           ),
         ],
       ),
@@ -109,6 +112,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
     if (!state.isAnySlotSpinning && state.currentPrize != null) {
       showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (_) => Center(
           child: PrizeDialog(prize: state.currentPrize!),
         ),
