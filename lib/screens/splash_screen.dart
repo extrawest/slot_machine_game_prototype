@@ -16,7 +16,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _precacheImages().then((_) => Navigator.pushReplacementNamed(context, homeScreenRoute));
+      _precacheImages(() {
+        if (!mounted) {
+          return;
+        }
+        Navigator.pushReplacementNamed(context, homeScreenRoute);
+      });
     });
     super.initState();
   }
@@ -33,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<void> _precacheImages() async {
+  Future<void> _precacheImages(VoidCallback onSuccess) async {
     await precacheImage(Image.asset(boardIc).image, context);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, playButton), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, arrowButton), null);
@@ -47,5 +52,6 @@ class _SplashScreenState extends State<SplashScreen> {
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, coinIc), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, watermelonIc), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, crownIc), null);
+    onSuccess.call();
   }
 }
