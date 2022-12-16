@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slot_machine/slot_machine.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:slot_machine_game/assets.dart';
+import 'package:slot_machine_game/models/prize.dart';
 import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/utils.dart';
 import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
@@ -19,8 +21,22 @@ class CustomSlotMachine extends StatefulWidget {
   State<CustomSlotMachine> createState() => _CustomSlotMachineState();
 }
 
-class _CustomSlotMachineState extends State<CustomSlotMachine> {
+class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProviderStateMixin {
   late final SlotMachineController _slotMachineController;
+
+  late final AnimationController _lottieController;
+
+  @override
+  void initState() {
+    _lottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _lottieController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,23 +124,58 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> {
     );
   }
 
-  void _slotMachineListener(BuildContext context, SlotMachineState state) {
-    if (!state.isAnySlotSpinning && state.currentPrize != null) {
-      Future.delayed(const Duration(seconds: 1)).then(
-        (value) => showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => Center(
-            child: PrizeDialog(prize: state.currentPrize!),
+  Widget _buildLottie() {
+    return Positioned.fill(
+      child: Align(
+        alignment: Alignment.center,
+        child: IgnorePointer(
+          child: Lottie.asset(
+            confettiLottie,
+            controller: _lottieController,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.height,
+            fit: BoxFit.fill,
           ),
         ),
-      );
+      ),
+    );
+  }
+
+  Future<void> _slotMachineListener(BuildContext context, SlotMachineState state) async {
+    if (!state.isAnySlotSpinning && state.currentPrize != null) {
+      await _showPrizeDialog(state);
+      final prizeType = state.currentPrize!.prizeType;
+      if (prizeType.isCherry || prizeType.isSeventh) {
+        _playLottie();
+      }
     }
   }
 
+  Future<void> _showPrizeDialog(SlotMachineState state) async {
+    await Future.delayed(const Duration(seconds: 1));
+    final prizeType = state.currentPrize!.prizeType;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Stack(
+        children: [
+          Center(
+            child: PrizeDialog(prize: state.currentPrize!),
+          ),
+          if (prizeType.isSeventh || prizeType.isCherry) _buildLottie(),
+        ],
+      ),
+    );
+  }
+
+  void _playLottie() {
+    _lottieController.forward().then((_) => _lottieController.reset());
+  }
+
   void _onSlotMachineStart() {
+    /// If this value is more than number of roll items
+    /// then slot machine will show you 3 random different items
     final index = Random().nextInt(8);
-    print(index);
     _slotMachineController.start(hitRollItemIndex: index <= 7 ? index : null);
     context.read<SlotMachineCubit>().setSlotsValue(
           firstSlot: true,

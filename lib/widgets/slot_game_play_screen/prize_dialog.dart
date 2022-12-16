@@ -41,6 +41,7 @@ class _PrizeDialogState extends State<PrizeDialog> with TickerProviderStateMixin
   @override
   void dispose() {
     _scaleAnimationController.dispose();
+    _opacityAnimationController.dispose();
     super.dispose();
   }
 
