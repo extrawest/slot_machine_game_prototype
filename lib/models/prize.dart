@@ -1,12 +1,16 @@
+import 'package:slot_machine_game/models/lottie_type.dart';
+
 class Prize {
   final PrizeType prizeType;
   final String asset;
   final String name;
+  final LottieType lottieType;
 
   const Prize({
     required this.asset,
     required this.prizeType,
     required this.name,
+    required this.lottieType,
   });
 }
 

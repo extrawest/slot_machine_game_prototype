@@ -1,6 +1,7 @@
 import 'package:flutter_slot_machine/slot_machine.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
+import 'package:slot_machine_game/models/lottie_type.dart';
 import 'package:slot_machine_game/models/prize.dart';
 
 List<RollItem> rollItems = <RollItem>[
@@ -15,12 +16,52 @@ List<RollItem> rollItems = <RollItem>[
 ];
 
 final Map<int, Prize> prizes = <int, Prize>{
-  0: const Prize(asset: seventhIc, prizeType: PrizeType.seventh, name: 'Jackpot'),
-  1: const Prize(asset: cherryIc, prizeType: PrizeType.cherry, name: 'Cherry'),
-  2: const Prize(asset: appleIc, prizeType: PrizeType.apple, name: 'Apple'),
-  3: const Prize(asset: crownIc, prizeType: PrizeType.crown, name: 'Crown'),
-  4: const Prize(asset: barIc, prizeType: PrizeType.bar, name: 'Bar'),
-  5: const Prize(asset: coinIc, prizeType: PrizeType.coin, name: 'Coins'),
-  6: const Prize(asset: lemonIc, prizeType: PrizeType.lemon, name: 'Lemon'),
-  7: const Prize(asset: watermelonIc, prizeType: PrizeType.watermelon, name: 'Watermelon'),
+  0: const Prize(
+    asset: seventhIc,
+    prizeType: PrizeType.seventh,
+    name: 'Jackpot',
+    lottieType: LottieType.goldenConfetti,
+  ),
+  1: const Prize(
+    asset: cherryIc,
+    prizeType: PrizeType.cherry,
+    name: 'Cherry',
+    lottieType: LottieType.goldenConfetti,
+  ),
+  2: const Prize(
+    asset: appleIc,
+    prizeType: PrizeType.apple,
+    name: 'Apple',
+    lottieType: LottieType.confetti,
+  ),
+  3: const Prize(
+    asset: crownIc,
+    prizeType: PrizeType.crown,
+    name: 'Crown',
+    lottieType: LottieType.confetti,
+  ),
+  4: const Prize(
+    asset: barIc,
+    prizeType: PrizeType.bar,
+    name: 'Bar',
+    lottieType: LottieType.confetti,
+  ),
+  5: const Prize(
+    asset: coinIc,
+    prizeType: PrizeType.coin,
+    name: 'Coins',
+    lottieType: LottieType.confetti,
+  ),
+  6: const Prize(
+    asset: lemonIc,
+    prizeType: PrizeType.lemon,
+    name: 'Lemon',
+    lottieType: LottieType.confetti,
+  ),
+  7: const Prize(
+    asset: watermelonIc,
+    prizeType: PrizeType.watermelon,
+    name: 'Watermelon',
+    lottieType: LottieType.confetti,
+  ),
 };

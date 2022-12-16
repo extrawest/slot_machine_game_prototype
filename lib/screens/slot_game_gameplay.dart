@@ -17,19 +17,21 @@ class _SlotGamePlayScreenState extends State<SlotGamePlayScreen> {
   @override
   Widget build(BuildContext context) {
     return GradientBackgroundScaffold(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            CommonMouseRegion(
-              child: ZoomTapAnimation(
-                onTap: () => Navigator.pop(context),
-                child: SvgPicture.asset(homeButton, width: 100),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            children: [
+              CommonMouseRegion(
+                child: ZoomTapAnimation(
+                  onTap: () => Navigator.pop(context),
+                  child: SvgPicture.asset(homeButton, width: 100),
+                ),
               ),
-            ),
-            const SizedBox(height: 50),
-            const CustomSlotMachine(),
-          ],
+              const SizedBox(height: 50),
+              const CustomSlotMachine(),
+            ],
+          ),
         ),
       ),
     );

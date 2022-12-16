@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slot_machine/slot_machine.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:slot_machine_game/assets.dart';
-import 'package:slot_machine_game/models/prize.dart';
+import 'package:slot_machine_game/models/lottie_type.dart';
 import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/utils.dart';
+import 'package:slot_machine_game/widgets/common/common_lottie.dart';
 import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
 import 'package:slot_machine_game/widgets/slot_game_play_screen/prize_dialog.dart';
 import 'package:slot_machine_game/widgets/slot_game_play_screen/stop_button.dart';
@@ -24,17 +24,21 @@ class CustomSlotMachine extends StatefulWidget {
 class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProviderStateMixin {
   late final SlotMachineController _slotMachineController;
 
-  late final AnimationController _lottieController;
+  late final AnimationController _confettiLottieController;
+
+  late final AnimationController _goldenLottieController;
 
   @override
   void initState() {
-    _lottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _confettiLottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _goldenLottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     super.initState();
   }
 
   @override
   void dispose() {
-    _lottieController.dispose();
+    _confettiLottieController.dispose();
+    _goldenLottieController.dispose();
     super.dispose();
   }
 
@@ -124,36 +128,28 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
     );
   }
 
-  Widget _buildLottie() {
-    return Positioned.fill(
-      child: Align(
-        alignment: Alignment.center,
-        child: IgnorePointer(
-          child: Lottie.asset(
-            confettiLottie,
-            controller: _lottieController,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.height,
-            fit: BoxFit.fill,
-          ),
-        ),
+  List<Widget> _buildLotties(SlotMachineState state) {
+    return [
+      CommonLottie(
+        lottieController: _confettiLottieController,
+        lottie: confettiLottie,
       ),
-    );
+      CommonLottie(
+        lottieController: _goldenLottieController,
+        lottie: goldenConfettiLottie,
+      ),
+    ];
   }
 
   Future<void> _slotMachineListener(BuildContext context, SlotMachineState state) async {
     if (!state.isAnySlotSpinning && state.currentPrize != null) {
       await _showPrizeDialog(state);
-      final prizeType = state.currentPrize!.prizeType;
-      if (prizeType.isCherry || prizeType.isSeventh) {
-        _playLottie();
-      }
+      _playLottie(state.currentPrize!.lottieType);
     }
   }
 
   Future<void> _showPrizeDialog(SlotMachineState state) async {
     await Future.delayed(const Duration(seconds: 1));
-    final prizeType = state.currentPrize!.prizeType;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -162,14 +158,18 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
           Center(
             child: PrizeDialog(prize: state.currentPrize!),
           ),
-          if (prizeType.isSeventh || prizeType.isCherry) _buildLottie(),
+          ..._buildLotties(state),
         ],
       ),
     );
   }
 
-  void _playLottie() {
-    _lottieController.forward().then((_) => _lottieController.reset());
+  void _playLottie(LottieType lottieType) {
+    if (lottieType.isConfetti) {
+      _confettiLottieController.forward().then((_) => _confettiLottieController.reset());
+    } else if (lottieType.isGoldenConfetti) {
+      _goldenLottieController.forward().then((_) => _goldenLottieController.reset());
+    }
   }
 
   void _onSlotMachineStart() {

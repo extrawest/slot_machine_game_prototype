@@ -15,3 +15,4 @@ const watermelonIc = 'assets/images/watermelon.svg';
 
 /// Lotties
 const confettiLottie = 'assets/lotties/confetti.json';
+const goldenConfettiLottie = 'assets/lotties/golden_confetti.json';
