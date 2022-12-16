@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/routes.dart';
 import 'package:slot_machine_game/theme.dart';
+import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class SlotGameMainMenu extends StatelessWidget {
@@ -20,11 +21,13 @@ class SlotGameMainMenu extends StatelessWidget {
         ),
         Expanded(
           flex: 4,
-          child: ZoomTapAnimation(
-            onTap: () {
-              Navigator.pushReplacementNamed(context, gameScreenRoute);
-            },
-            child: SvgPicture.asset(playButton),
+          child: CommonMouseRegion(
+            child: ZoomTapAnimation(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, gameScreenRoute);
+              },
+              child: SvgPicture.asset(playButton),
+            ),
           ),
         ),
       ],
