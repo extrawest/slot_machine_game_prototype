@@ -175,7 +175,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
   void _onSlotMachineStart() {
     /// If this value is more than number of roll items
     /// then slot machine will show you 3 random different items
-    final index = Random().nextInt(8);
+    final index = Random().nextInt(16);
     _slotMachineController.start(hitRollItemIndex: index <= 7 ? index : null);
     context.read<SlotMachineCubit>().setSlotsValue(
           firstSlot: true,
