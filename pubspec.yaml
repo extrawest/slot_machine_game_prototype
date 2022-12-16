@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^1.1.6
   zoom_tap_animation: ^1.1.0
   flutter_slot_machine: ^0.0.1
+  lottie: ^2.1.0
 
 dev_dependencies:
   flutter_test:
