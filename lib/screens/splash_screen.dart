@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/routes.dart';
 import 'package:slot_machine_game/theme.dart';
@@ -15,7 +17,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _loadComposition();
       _precacheImages(() {
         if (!mounted) {
           return;
@@ -53,5 +56,10 @@ class _SplashScreenState extends State<SplashScreen> {
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, watermelonIc), null);
     await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, crownIc), null);
     onSuccess.call();
+  }
+
+  Future<void> _loadComposition() async {
+    await AssetLottie(confettiLottie).load();
+    await AssetLottie(goldenConfettiLottie).load();
   }
 }
