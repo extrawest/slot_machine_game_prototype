@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slot_machine_game/consts.dart';
 import 'package:slot_machine_game/models/prize.dart';
-import 'package:slot_machine_game/utils.dart';
+import 'package:slot_machine_game/repositories/slots_repository.dart';
 
 part 'slot_machine_state.dart';
 
