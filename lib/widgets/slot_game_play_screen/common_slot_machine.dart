@@ -15,14 +15,14 @@ import 'package:slot_machine_game/widgets/slot_game_play_screen/prize_dialog.dar
 import 'package:slot_machine_game/widgets/slot_game_play_screen/stop_button.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class CustomSlotMachine extends StatefulWidget {
-  const CustomSlotMachine({Key? key}) : super(key: key);
+class CommonSlotMachine extends StatefulWidget {
+  const CommonSlotMachine({Key? key}) : super(key: key);
 
   @override
-  State<CustomSlotMachine> createState() => _CustomSlotMachineState();
+  State<CommonSlotMachine> createState() => _CommonSlotMachineState();
 }
 
-class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProviderStateMixin {
+class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProviderStateMixin {
   late final SlotMachineController _slotMachineController;
 
   late final AnimationController _confettiLottieController;

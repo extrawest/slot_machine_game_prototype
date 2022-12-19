@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/widgets/common/background_gradient_scaffold.dart';
 import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
-import 'package:slot_machine_game/widgets/slot_game_play_screen/custom_slot_machine.dart';
+import 'package:slot_machine_game/widgets/slot_game_play_screen/common_slot_machine.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class SlotGamePlayScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _SlotGamePlayScreenState extends State<SlotGamePlayScreen> {
                 ),
               ),
               const SizedBox(height: 50),
-              const CustomSlotMachine(),
+              const CommonSlotMachine(),
             ],
           ),
         ),
