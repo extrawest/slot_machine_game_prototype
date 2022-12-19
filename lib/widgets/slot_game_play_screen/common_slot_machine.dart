@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slot_machine/slot_machine.dart';
@@ -45,55 +43,65 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SlotMachineCubit, SlotMachineState>(
-      listenWhen: (prev, curr) => prev.isAnySlotSpinning != curr.isAnySlotSpinning,
-      listener: _slotMachineListener,
-      builder: (context, state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Transform.scale(
-            scale: 1.5,
-            child: Container(
-              margin: const EdgeInsets.all(40.0),
-              padding: const EdgeInsets.only(top: 20),
-              height: 205,
-              width: 280,
-              decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage(boardIc), fit: BoxFit.cover),
-              ),
-              child: AbsorbPointer(
-                child: SlotMachine(
-                  reelHeight: 100,
-                  reelItemExtent: 40,
-                  reelSpacing: 6,
-                  rollItems: rollItems,
-                  onCreated: (controller) {
-                    _slotMachineController = controller;
-                  },
-                  onFinished: (controller) {},
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SlotMachineCubit, SlotMachineState>(
+          listenWhen: (prev, curr) => prev.isAnySlotSpinning != curr.isAnySlotSpinning,
+          listener: _slotMachineListener,
+        ),
+        BlocListener<SlotMachineCubit, SlotMachineState>(
+          listenWhen: (prev, curr) => prev.prizeIndex != curr.prizeIndex,
+          listener: _slotMachineStartListener,
+        ),
+      ],
+      child: BlocBuilder<SlotMachineCubit, SlotMachineState>(
+        builder: (context, state) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Transform.scale(
+              scale: 1.5,
+              child: Container(
+                margin: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.only(top: 20),
+                height: 205,
+                width: 280,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage(boardIc), fit: BoxFit.cover),
+                ),
+                child: AbsorbPointer(
+                  child: SlotMachine(
+                    reelHeight: 100,
+                    reelItemExtent: 40,
+                    reelSpacing: 6,
+                    rollItems: rollItems,
+                    onCreated: (controller) {
+                      _slotMachineController = controller;
+                    },
+                    onFinished: (controller) {},
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 25),
-          _buildStopButtons(state),
-          const SizedBox(height: 25),
-          CommonMouseRegion(
-            child: ZoomTapAnimation(
-              key: const ValueKey(startMachineButtonKeyValue),
-              onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
-                  ? null
-                  : _onSlotMachineStart(),
-              child: SvgPicture.asset(playButton, width: 200),
+            const SizedBox(height: 25),
+            _buildStopButtons(context, state),
+            const SizedBox(height: 25),
+            CommonMouseRegion(
+              child: ZoomTapAnimation(
+                key: const ValueKey(startMachineButtonKeyValue),
+                onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
+                    ? null
+                    : _onSlotMachineStart(context),
+                child: SvgPicture.asset(playButton, width: 200),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildStopButtons(SlotMachineState state) {
+  Widget _buildStopButtons(BuildContext context, SlotMachineState state) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
@@ -104,7 +112,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isFirstSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(firstSlot: false);
-                    _onSlotMachineStop(index: 0);
+                    _onSlotMachineStop(context, index: 0);
                   }
                 : null,
           ),
@@ -114,7 +122,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isSecondSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(secondSlot: false);
-                    _onSlotMachineStop(index: 1);
+                    _onSlotMachineStop(context, index: 1);
                   }
                 : null,
           ),
@@ -124,7 +132,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isThirdSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(thirdSlot: false);
-                    _onSlotMachineStop(index: 2);
+                    _onSlotMachineStop(context, index: 2);
                   }
                 : null,
           ),
@@ -153,6 +161,16 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
     }
   }
 
+  void _slotMachineStartListener(BuildContext context, SlotMachineState state) {
+    _slotMachineController.start(hitRollItemIndex: state.prizeIndex);
+    context.read<SlotMachineCubit>().setSlotsValue(
+          firstSlot: true,
+          secondSlot: true,
+          thirdSlot: true,
+        );
+    context.read<SlotMachineCubit>().setPrize(state.prizeIndex);
+  }
+
   Future<void> _showPrizeDialog(SlotMachineState state) async {
     await Future.delayed(const Duration(seconds: 1));
     showDialog(
@@ -177,20 +195,13 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
     }
   }
 
-  void _onSlotMachineStart() {
+  void _onSlotMachineStart(BuildContext context) {
     /// If this value is more than number of roll items
     /// then slot machine will show you 3 random different items
-    final index = Random().nextInt(16);
-    _slotMachineController.start(hitRollItemIndex: index <= 7 ? index : null);
-    context.read<SlotMachineCubit>().setSlotsValue(
-          firstSlot: true,
-          secondSlot: true,
-          thirdSlot: true,
-        );
-    context.read<SlotMachineCubit>().setPrize(index);
+    context.read<SlotMachineCubit>().generateIndex();
   }
 
-  void _onSlotMachineStop({required int index}) {
+  void _onSlotMachineStop(BuildContext context, {required int index}) {
     _slotMachineController.stop(reelIndex: index);
   }
 }

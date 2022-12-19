@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slot_machine_game/consts.dart';
@@ -20,16 +22,17 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
     ));
   }
 
-  void setPrizeIndex(int index) {
-    emit(state.copyWith(prizeIndex: index));
-  }
-
-  void setPrize(int prizeIndex) {
+  void setPrize(int? prizeIndex) {
     try {
       final prize = prizes[prizeIndex];
       emit(state.copyWith(currentPrize: prize, keepPrize: false));
     } catch (e) {
       emit(state.copyWith(errorMessage: defaultErrorMessage));
     }
+  }
+
+  void generateIndex() {
+    final index = Random().nextInt(16);
+    emit(state.copyWith(prizeIndex: index <= 7 ? index : null, keepPrizeIndex: false));
   }
 }

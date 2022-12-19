@@ -5,7 +5,7 @@ class SlotMachineState extends Equatable {
   final bool isFirstSlotSpinning;
   final bool isSecondSlotSpinning;
   final bool isThirdSlotSpinning;
-  final int prizeIndex;
+  final int? prizeIndex;
 
   final Prize? currentPrize;
 
@@ -26,6 +26,9 @@ class SlotMachineState extends Equatable {
     bool? isFirstSlotSpinning,
     bool? isSecondSlotSpinning,
     bool? isThirdSlotSpinning,
+
+    /// need this field because we have to pass to slotMachineController null value in some cases
+    bool keepPrizeIndex = true,
     int? prizeIndex,
     Prize? currentPrize,
     bool keepPrize = true,
@@ -36,7 +39,7 @@ class SlotMachineState extends Equatable {
       isFirstSlotSpinning: isFirstSlotSpinning ?? this.isFirstSlotSpinning,
       isSecondSlotSpinning: isSecondSlotSpinning ?? this.isSecondSlotSpinning,
       isThirdSlotSpinning: isThirdSlotSpinning ?? this.isThirdSlotSpinning,
-      prizeIndex: prizeIndex ?? this.prizeIndex,
+      prizeIndex: prizeIndex ?? (keepPrizeIndex ? this.prizeIndex : null),
       currentPrize: currentPrize ?? (keepPrize ? this.currentPrize : null),
       errorMessage: errorMessage,
     );
