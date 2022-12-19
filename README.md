@@ -15,6 +15,7 @@
 
 - Slot machine (flutter_slot_machine package)
 - Different lotties effects based on the prize type
+- Shaders warming up
 
 ## Demo
 
@@ -59,6 +60,39 @@ flutter build web
 ```shell
 firebase deploy
 ```
+
+### Integration test
+In order to run integration test you have to:
+1. Use test_driver located at `test_driver/integration_test.dart`.
+2. Add enviromental variables API_KEY(for google maps) and IS_TESTING through --dart-define
+3. (Optional) Use shader warming up to collect shaders to `flutter_01.sksl.json`
+
+So, to run integration test, run the following command:
+
+Without shaders warming up
+```shell
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+```
+
+With shaders warming up
+
+```shell
+flutter drive --profile --cache-sksl --write-sksl-on-exit flutter_01.sksl.json --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+```
+<br>
+
+### To build release version with shaders warming up use the following:
+Android
+```shell
+flutter build apk --bundle-sksl-path flutter_01.sksl.json
+```
+iOS
+```shell
+flutter build ios --bundle-sksl-path flutter_01.sksl.json
+```
+<br>
+
+
 
 Created by Roman Ovsepian
 
