@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slot_machine/slot_machine.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
+import 'package:slot_machine_game/consts.dart';
 import 'package:slot_machine_game/models/lottie_type.dart';
 import 'package:slot_machine_game/slot_machine_cubit/slot_machine_cubit.dart';
 import 'package:slot_machine_game/utils.dart';
@@ -80,6 +81,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
           const SizedBox(height: 25),
           CommonMouseRegion(
             child: ZoomTapAnimation(
+              key: const ValueKey(startMachineButtonKeyValue),
               onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
                   ? null
                   : _onSlotMachineStart(),
@@ -98,6 +100,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StopButton(
+            key: const ValueKey(stopFirstSlotButtonKeyValue),
             onPressed: state.isFirstSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(firstSlot: false);
@@ -107,6 +110,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
           ),
           const SizedBox(width: 32),
           StopButton(
+            key: const ValueKey(stopSecondSlotButtonKeyValue),
             onPressed: state.isSecondSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(secondSlot: false);
@@ -116,6 +120,7 @@ class _CustomSlotMachineState extends State<CustomSlotMachine> with TickerProvid
           ),
           const SizedBox(width: 32),
           StopButton(
+            key: const ValueKey(stopThirdSlotButtonKeyValue),
             onPressed: state.isThirdSlotSpinning
                 ? () {
                     context.read<SlotMachineCubit>().setSlotsValue(thirdSlot: false);

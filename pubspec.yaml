@@ -44,6 +44,8 @@ dependencies:
   lottie: ^2.1.0
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

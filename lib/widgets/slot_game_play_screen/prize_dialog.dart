@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
+import 'package:slot_machine_game/consts.dart';
 import 'package:slot_machine_game/models/prize.dart';
 import 'package:slot_machine_game/theme.dart';
 import 'package:slot_machine_game/widgets/common/common_mouse_region.dart';
@@ -62,6 +63,7 @@ class _PrizeDialogState extends State<PrizeDialog> with TickerProviderStateMixin
               angle: pi,
               child: CommonMouseRegion(
                 child: ZoomTapAnimation(
+                  key: const ValueKey(backButtonKeyValue),
                   onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(arrowButton, width: 110),
                 ),
