@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const primaryWhite = Colors.white;
-
-final lightTheme = ThemeData();
+const brown1 = Color(0xff433431);
+const brown2 = Color(0xff6f4337);
 
 class TextStyles {
   static const bodyReg20 = TextStyle(color: primaryWhite, fontSize: 20);

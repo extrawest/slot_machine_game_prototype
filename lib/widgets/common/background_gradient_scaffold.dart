@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slot_machine_game/theme.dart';
 
 class GradientBackgroundScaffold extends StatelessWidget {
   final Widget child;
@@ -24,8 +25,8 @@ class GradientBackgroundScaffold extends StatelessWidget {
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
             colors: [
-              Color(0xff433431),
-              Color(0xff6f4337),
+              brown1,
+              brown2,
             ],
           ),
         ),
