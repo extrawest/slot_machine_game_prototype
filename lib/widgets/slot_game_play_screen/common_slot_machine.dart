@@ -91,7 +91,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
                 key: const ValueKey(startMachineButtonKeyValue),
                 onTap: () => (state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning)
                     ? null
-                    : _onSlotMachineStart(context),
+                    : _startSlotMachineS(context),
                 child: SvgPicture.asset(playButton, width: 200),
               ),
             ),
@@ -113,7 +113,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isFirstSlotSpinning
                 ? () {
                     slotMachineProvider.setFirstSlotValue(false);
-                    _onSlotMachineStop(context, index: 0);
+                    _stopSlotMachine(context, index: 0);
                   }
                 : null,
           ),
@@ -123,7 +123,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isSecondSlotSpinning
                 ? () {
                     slotMachineProvider.setSecondSlotValue(false);
-                    _onSlotMachineStop(context, index: 1);
+                    _stopSlotMachine(context, index: 1);
                   }
                 : null,
           ),
@@ -133,7 +133,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             onPressed: state.isThirdSlotSpinning
                 ? () {
                     slotMachineProvider.setThirdSlotValue(false);
-                    _onSlotMachineStop(context, index: 2);
+                    _stopSlotMachine(context, index: 2);
                   }
                 : null,
           ),
@@ -201,11 +201,11 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
     }
   }
 
-  void _onSlotMachineStart(BuildContext context) {
+  void _startSlotMachineS(BuildContext context) {
     context.read<SlotMachineCubit>().generateIndex();
   }
 
-  void _onSlotMachineStop(BuildContext context, {required int index}) {
+  void _stopSlotMachine(BuildContext context, {required int index}) {
     _slotMachineController.stop(reelIndex: index);
   }
 }
