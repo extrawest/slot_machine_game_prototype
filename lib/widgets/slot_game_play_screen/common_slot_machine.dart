@@ -102,6 +102,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
   }
 
   Widget _buildStopButtons(BuildContext context, SlotMachineState state) {
+    final slotMachineProvider = context.read<SlotMachineCubit>();
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(
@@ -111,7 +112,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopFirstSlotButtonKeyValue),
             onPressed: state.isFirstSlotSpinning
                 ? () {
-                    context.read<SlotMachineCubit>().setSlotsValue(firstSlot: false);
+                    slotMachineProvider.setSlotsValue(firstSlot: false);
                     _onSlotMachineStop(context, index: 0);
                   }
                 : null,
@@ -121,7 +122,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopSecondSlotButtonKeyValue),
             onPressed: state.isSecondSlotSpinning
                 ? () {
-                    context.read<SlotMachineCubit>().setSlotsValue(secondSlot: false);
+                    slotMachineProvider.setSlotsValue(secondSlot: false);
                     _onSlotMachineStop(context, index: 1);
                   }
                 : null,
@@ -131,7 +132,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopThirdSlotButtonKeyValue),
             onPressed: state.isThirdSlotSpinning
                 ? () {
-                    context.read<SlotMachineCubit>().setSlotsValue(thirdSlot: false);
+                    slotMachineProvider.setSlotsValue(thirdSlot: false);
                     _onSlotMachineStop(context, index: 2);
                   }
                 : null,
@@ -162,13 +163,14 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
   }
 
   void _slotMachineStartListener(BuildContext context, SlotMachineState state) {
+    final slotMachineProvider = context.read<SlotMachineCubit>();
     _slotMachineController.start(hitRollItemIndex: state.prizeIndex);
-    context.read<SlotMachineCubit>().setSlotsValue(
-          firstSlot: true,
-          secondSlot: true,
-          thirdSlot: true,
-        );
-    context.read<SlotMachineCubit>().setPrize(state.prizeIndex);
+    slotMachineProvider.setSlotsValue(
+      firstSlot: true,
+      secondSlot: true,
+      thirdSlot: true,
+    );
+    slotMachineProvider.setPrize(state.prizeIndex);
   }
 
   Future<void> _showPrizeDialog(SlotMachineState state) async {

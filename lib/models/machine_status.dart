@@ -1,0 +1,4 @@
+enum MachineStatus {
+  stopped,
+  spinning,
+}
