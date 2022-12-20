@@ -156,6 +156,11 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
   }
 
   Future<void> _slotMachineListener(BuildContext context, SlotMachineState state) async {
+    if (state.errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.errorMessage!)),
+      );
+    }
     if (!state.isAnySlotSpinning && state.currentPrize != null) {
       await _showPrizeDialog(state);
       _playLottie(state.currentPrize!.lottieType);
