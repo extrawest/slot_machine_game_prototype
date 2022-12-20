@@ -50,7 +50,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
           listener: _slotMachineListener,
         ),
         BlocListener<SlotMachineCubit, SlotMachineState>(
-          listenWhen: (prev, curr) => prev.prizeIndex != curr.prizeIndex,
+          listenWhen: (_, curr) => curr.shouldTriggerSlotMachine,
           listener: _slotMachineStartListener,
         ),
       ],
@@ -203,8 +203,6 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
   }
 
   void _onSlotMachineStart(BuildContext context) {
-    /// If this value is more than number of roll items
-    /// then slot machine will show you 3 random different items
     context.read<SlotMachineCubit>().generateIndex();
   }
 

@@ -9,6 +9,8 @@ class SlotMachineState extends Equatable {
 
   final Prize? currentPrize;
 
+  final bool shouldTriggerSlotMachine;
+
   final String? errorMessage;
 
   const SlotMachineState({
@@ -19,6 +21,7 @@ class SlotMachineState extends Equatable {
     this.prizeIndex = 0,
     this.currentPrize,
     this.errorMessage,
+    this.shouldTriggerSlotMachine = false,
   });
 
   SlotMachineState copyWith({
@@ -32,6 +35,7 @@ class SlotMachineState extends Equatable {
     int? prizeIndex,
     Prize? currentPrize,
     bool keepPrize = true,
+    bool shouldTriggerSlotMachine = false,
     String? errorMessage,
   }) {
     return SlotMachineState(
@@ -41,6 +45,7 @@ class SlotMachineState extends Equatable {
       isThirdSlotSpinning: isThirdSlotSpinning ?? this.isThirdSlotSpinning,
       prizeIndex: prizeIndex ?? (keepPrizeIndex ? this.prizeIndex : null),
       currentPrize: currentPrize ?? (keepPrize ? this.currentPrize : null),
+      shouldTriggerSlotMachine: shouldTriggerSlotMachine,
       errorMessage: errorMessage,
     );
   }
@@ -54,5 +59,6 @@ class SlotMachineState extends Equatable {
         prizeIndex,
         currentPrize,
         errorMessage,
+        shouldTriggerSlotMachine,
       ];
 }

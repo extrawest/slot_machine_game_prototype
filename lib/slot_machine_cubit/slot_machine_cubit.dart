@@ -32,7 +32,9 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
   }
 
   void generateIndex() {
+    /// If this value is more than number of roll items
+    /// then slot machine will show you 3 random different items
     final index = Random().nextInt(16);
-    emit(state.copyWith(prizeIndex: index <= 7 ? index : null, keepPrizeIndex: false));
+    emit(state.copyWith(prizeIndex: index <= 7 ? index : null, keepPrizeIndex: false, shouldTriggerSlotMachine: true));
   }
 }
