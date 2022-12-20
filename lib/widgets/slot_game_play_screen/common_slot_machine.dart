@@ -112,7 +112,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopFirstSlotButtonKeyValue),
             onPressed: state.isFirstSlotSpinning
                 ? () {
-                    slotMachineProvider.setSlotsValue(firstSlot: false);
+                    slotMachineProvider.setFirstSlotValue(false);
                     _onSlotMachineStop(context, index: 0);
                   }
                 : null,
@@ -122,7 +122,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopSecondSlotButtonKeyValue),
             onPressed: state.isSecondSlotSpinning
                 ? () {
-                    slotMachineProvider.setSlotsValue(secondSlot: false);
+                    slotMachineProvider.setSecondSlotValue(false);
                     _onSlotMachineStop(context, index: 1);
                   }
                 : null,
@@ -132,7 +132,7 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
             key: const ValueKey(stopThirdSlotButtonKeyValue),
             onPressed: state.isThirdSlotSpinning
                 ? () {
-                    slotMachineProvider.setSlotsValue(thirdSlot: false);
+                    slotMachineProvider.setThirdSlotValue(false);
                     _onSlotMachineStop(context, index: 2);
                   }
                 : null,
@@ -170,11 +170,10 @@ class _CommonSlotMachineState extends State<CommonSlotMachine> with TickerProvid
   void _slotMachineStartListener(BuildContext context, SlotMachineState state) {
     final slotMachineProvider = context.read<SlotMachineCubit>();
     _slotMachineController.start(hitRollItemIndex: state.prizeIndex);
-    slotMachineProvider.setSlotsValue(
-      firstSlot: true,
-      secondSlot: true,
-      thirdSlot: true,
-    );
+    slotMachineProvider.setFirstSlotValue(true);
+    slotMachineProvider.setSecondSlotValue(true);
+    slotMachineProvider.setThirdSlotValue(true);
+
     slotMachineProvider.setPrize(state.prizeIndex);
   }
 

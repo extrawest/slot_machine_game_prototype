@@ -11,14 +11,24 @@ part 'slot_machine_state.dart';
 class SlotMachineCubit extends Cubit<SlotMachineState> {
   SlotMachineCubit() : super(const SlotMachineState());
 
-  void setSlotsValue({bool? firstSlot, bool? secondSlot, bool? thirdSlot}) {
+  void setFirstSlotValue(bool value) {
+    emit(state.copyWith(isFirstSlotSpinning: value));
+    _checkIfAnySlotSpinning();
+  }
+
+  void setSecondSlotValue(bool value) {
+    emit(state.copyWith(isSecondSlotSpinning: value));
+    _checkIfAnySlotSpinning();
+  }
+
+  void setThirdSlotValue(bool value) {
+    emit(state.copyWith(isThirdSlotSpinning: value));
+    _checkIfAnySlotSpinning();
+  }
+
+  void _checkIfAnySlotSpinning() {
     emit(state.copyWith(
-      isAnySlotSpinning: (firstSlot ?? state.isFirstSlotSpinning) ||
-          (secondSlot ?? state.isSecondSlotSpinning) ||
-          (thirdSlot ?? state.isThirdSlotSpinning),
-      isFirstSlotSpinning: firstSlot,
-      isSecondSlotSpinning: secondSlot,
-      isThirdSlotSpinning: thirdSlot,
+      isAnySlotSpinning: state.isFirstSlotSpinning || state.isSecondSlotSpinning || state.isThirdSlotSpinning,
     ));
   }
 
