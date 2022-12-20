@@ -42,6 +42,7 @@ dependencies:
   zoom_tap_animation: ^1.1.0
   flutter_slot_machine: ^0.0.1
   lottie: ^2.1.0
+  logging: ^1.1.0
 
 dev_dependencies:
   integration_test:

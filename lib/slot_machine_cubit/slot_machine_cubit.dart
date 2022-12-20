@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slot_machine_game/consts.dart';
 import 'package:slot_machine_game/models/prize.dart';
 import 'package:slot_machine_game/repositories/slots_repository.dart';
+import 'package:slot_machine_game/utils/logger.dart';
 
 part 'slot_machine_state.dart';
 
@@ -38,6 +39,7 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
       emit(state.copyWith(currentPrize: prize, keepPrize: false));
     } catch (e) {
       emit(state.copyWith(errorMessage: defaultErrorMessage));
+      log.severe(e);
     }
   }
 
@@ -45,6 +47,11 @@ class SlotMachineCubit extends Cubit<SlotMachineState> {
     /// If this value is more than number of roll items
     /// then slot machine will show you 3 random different items
     final index = Random().nextInt(16);
-    emit(state.copyWith(prizeIndex: index <= 7 ? index : null, keepPrizeIndex: false, shouldTriggerSlotMachine: true));
+    emit(state.copyWith(prizeIndex: index <= 7 ? index : null, keepPrizeIndex: false));
+    triggerSlotMachine();
+  }
+
+  void triggerSlotMachine() {
+    emit(state.copyWith(shouldTriggerSlotMachine: true));
   }
 }
