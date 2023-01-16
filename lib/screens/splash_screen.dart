@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slot_machine_game/assets.dart';
 import 'package:slot_machine_game/screens/slot_game_home_screen.dart';
 import 'package:slot_machine_game/theme.dart';
-import 'package:slot_machine_game/utils.dart';
+import 'package:slot_machine_game/utils/precaching.dart';
 import 'package:slot_machine_game/widgets/common/background_gradient_scaffold.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return GradientBackgroundScaffold(
       child: FutureBuilder(
-          future: Utils().loadGraphics(context),
+          future: Precaching().loadGraphics(context),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return const SlotGameHomeScreen();

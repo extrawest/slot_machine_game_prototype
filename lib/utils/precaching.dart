@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:slot_machine_game/assets.dart';
 
-class Utils {
+class Precaching {
   Future<bool> loadGraphics(BuildContext context) async {
     await _precacheImages(context);
     await _loadComposition();
